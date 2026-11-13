@@ -1630,10 +1630,19 @@
 </script>
 </body>
 </html>
-var admin = require("firebase-admin");
+import (
+  "fmt"
+  "context"
 
-var serviceAccount = require("path/to/serviceAccountKey.json");
+  firebase "firebase.google.com/go"
+  "firebase.google.com/go/auth"
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount)
-});
+  "google.golang.org/api/option"
+)
+
+opt := option.WithCredentialsFile("path/to/serviceAccountKey.json")
+app, err := firebase.NewApp(context.Background(), nil, opt)
+if err != nil {
+  return nil, fmt.Errorf("error initializing app: %v", err)
+}
+
